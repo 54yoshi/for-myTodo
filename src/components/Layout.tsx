@@ -13,11 +13,13 @@ const Layout: React.FC<LayoutProps>= ({ children }) => {
         top: "0", 
         left:"0",
         fontWeight: "600",
-        fontSize: "30px",
+        fontSize: "20px",
         borderBottom: "2px solid black",
         width: "100%", 
         height: "80px",
-        textAlign: "center"
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
       >
         for my web
