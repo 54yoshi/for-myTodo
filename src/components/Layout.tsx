@@ -13,13 +13,16 @@ const Layout: React.FC<LayoutProps>= ({ children }) => {
         top: "0", 
         left:"0",
         fontWeight: "600",
-        borderBottom: "1px solid black",
+        fontSize: "30px",
+        borderBottom: "2px solid black",
         width: "100%", 
         height: "80px",
         textAlign: "center"
       }}
       >
         for my web
+      </div>
+      <div style={{height: "80px", width: "100%"}}>
       </div>
       {children}
     </div>
