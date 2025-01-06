@@ -1,5 +1,6 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family:"Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体", 'Sawarabi Gothic', sans-serif;
 }

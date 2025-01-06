@@ -1,6 +1,6 @@
 "use client"
 import React, { Suspense, useState,useEffect } from "react";
-import Loading from "./parts/loding";
+import Loading from "./parts/loading";
 import useMobile from "../hooks/useMobile";
 // import ToastContainer from "react-toastify";
 

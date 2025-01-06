@@ -1,0 +1,10 @@
+.primaryButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 25px;
+  background-color: #7367F0;
+  cursor: pointer;
+}
