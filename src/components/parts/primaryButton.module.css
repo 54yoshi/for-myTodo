@@ -4,7 +4,19 @@
   align-items: center;
   padding: 10px 20px;
   color: #fff;
+  font-weight: 600;
+  border: 2px solid #F676A7;
   border-radius: 25px;
-  background-color: #7367F0;
+  background-color: white;
+  color: #F676A7;
   cursor: pointer;
+  user-select: none;
+  transition: background-color 0.4s, color 0.4s;
 }
+
+.primaryButton:hover {
+  background-color: #F676A7;
+  color: white;
+}
+
+

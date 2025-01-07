@@ -3,7 +3,7 @@ import styles from "./primaryButton.module.css";
 
 interface PrimaryButtonProps {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
   disabled: boolean;
   style?: React.CSSProperties;
 }

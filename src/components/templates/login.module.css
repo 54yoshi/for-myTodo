@@ -11,17 +11,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgb(215, 213, 213);
   background-color: #fff;
+  padding: 50px 100px;
   border-radius: 10px;
-  width: 30%;
-  height: 40%;
 }
 
 .modalTitle {
   font-size: 24px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   color: #2C2560;
+}
+
+.inputLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2C2560
 }
 
 .loginForm {
@@ -40,12 +44,10 @@
   cursor: pointer;
 }
 
-.signup {
-  display: flex;
+.link {
+  display: block;
   margin-top: 20px;
-}
-
-.signupLink {
-  color: #7367F0;
+  color: #F676A7;
+  font-size: 14px;
   text-decoration: none;
 }
