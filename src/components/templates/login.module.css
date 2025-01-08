@@ -51,3 +51,7 @@
   font-size: 14px;
   text-decoration: none;
 }
+
+.link:hover {
+  opacity: 0.8;
+}
