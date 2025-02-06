@@ -12,6 +12,9 @@
 /build
 .next
 
+##環境情報を排除
+.env
+
 # misc
 .DS_Store
 .env.local

@@ -2,18 +2,34 @@
 import React, { useState, useEffect} from "react";
 import styles from "./signup.module.css";
 import PrimaryButton from "../parts/primaryButton";
+import axios from "axios";
 
 
 const Signup: React.FC = () => {
 
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [newUserName, setNewUserName] = useState("未登録")
 
   const [disabled, setDisabled] = useState(true);
 
-useEffect(() => {
-  setDisabled(newEmail.length === 0 || newPassword.length === 0);
-}, [newEmail, newPassword])
+  useEffect(() => {
+    setDisabled(newEmail.length === 0 || newPassword.length === 0);
+  }, [newEmail, newPassword])
+
+  async function sendEmail(){
+    try{
+      axios.post('user/verify', {
+        userName: newUserName,
+        mailAddress: newEmail,
+        password: newPassword,
+      });
+      console.log('メール送信完了');
+      // モーダル用のコンポーネントを開くためのコードをここに書く
+    } catch(error){
+      console.log(error);
+    }
+  };
 
   return(
     <div className={styles.signupContainer}>
@@ -26,7 +42,7 @@ useEffect(() => {
           <input className={styles.input} type="password" value={newPassword} onChange={(e) => {
             setNewPassword(e.target.value);
           }}/>
-          <PrimaryButton text="登録する" disabled={disabled} style={{marginTop: "15px"}} />
+          <PrimaryButton text="登録する" disabled={disabled} style={{marginTop: "15px"}} onClick={sendEmail} />
         </form>
       </div>
     </div>
