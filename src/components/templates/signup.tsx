@@ -20,7 +20,7 @@ const Signup: React.FC = () => {
   async function sendEmail(){
     console.log(process.env.NEXT_PUBLIC_API_URL);
     try{
-      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/user/verify`, {
+      axios.post('https://api-for-my-todo.vercel.app/api/user/verify', {
         userName: newUserName,
         mailAddress: newEmail,
         password: newPassword,
