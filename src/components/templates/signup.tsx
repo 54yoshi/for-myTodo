@@ -18,6 +18,7 @@ const Signup: React.FC = () => {
   }, [newEmail, newPassword])
 
   async function sendEmail(){
+    console.log('ok');
     try{
       axios.post(`${process.env.REACT_APP_API_URL}user/verify`, {
         userName: newUserName,
@@ -25,7 +26,7 @@ const Signup: React.FC = () => {
         password: newPassword,
       });
       console.log('メール送信完了');
-      // モーダル用のコンポーネントを開くためのコードをここに書く
+      // 送信完了通達用のモーダルのコンポーネントを開くためのコードをここに書く
     } catch(error) {
       console.log(error);
     }
