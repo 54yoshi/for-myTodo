@@ -25,7 +25,6 @@ const Signup: React.FC = () => {
         mailAddress: newEmail,
         password: newPassword,
       });
-      console.log(process.env.REACT_APP_API_URL);
       // 送信完了通達用のモーダルのコンポーネントを開くためのコードをここに書く
     } catch(error) {
       console.log(error);
