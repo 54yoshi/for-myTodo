@@ -24,6 +24,8 @@ const Signup: React.FC = () => {
         userName: newUserName,
         mailAddress: newEmail,
         password: newPassword,
+      },{
+        withCredentials: true  
       });
       // 送信完了通達用のモーダルのコンポーネントを開くためのコードをここに書く
     } catch(error) {
