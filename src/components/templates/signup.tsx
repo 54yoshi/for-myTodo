@@ -18,7 +18,6 @@ const Signup: React.FC = () => {
   }, [newEmail, newPassword])
 
   async function sendEmail(){
-    console.log('ok');
     try{
       axios.post(`${process.env.REACT_APP_API_URL}/api/user/verify`, {
         userName: newUserName,
