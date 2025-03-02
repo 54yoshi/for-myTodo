@@ -20,7 +20,7 @@ const Signup: React.FC = () => {
   async function sendEmail(){
     // const endPoint = 'https://api-for-my-todo.vercel.app';
     const endPoint = process.env.NEXT_PUBLIC_ORIGIN;
-    console.log(endPoint);
+    console.log("エンドポイント:",endPoint);
     try{
       const response = await axios.post(endPoint + '/user/preResister', {
         userName: newUserName,
