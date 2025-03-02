@@ -9,7 +9,7 @@ const Signup: React.FC = () => {
 
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [newUserName, setNewUserName] = useState("未登録")
+  const [newUserName, setNewUserName] = useState("未登録");
 
   const [disabled, setDisabled] = useState(true);
 
@@ -18,16 +18,20 @@ const Signup: React.FC = () => {
   }, [newEmail, newPassword])
 
   async function sendEmail(){
-    console.log(process.env.NEXT_PUBLIC_API_URL);
+    // const endPoint = 'https://api-for-my-todo.vercel.app';
+    const endPoint = process.env.NEXT_PUBLIC_ORIGIN;
+    console.log(endPoint);
     try{
-      axios.post('https://api-for-my-todo.vercel.app/api/user/verify', {
+      const response = await axios.post(endPoint + '/user/preResister', {
         userName: newUserName,
         mailAddress: newEmail,
-        password: newPassword,
-      },{
+        password: newPassword
+      },
+      {
         withCredentials: true  
       });
       // 送信完了通達用のモーダルのコンポーネントを開くためのコードをここに書く
+      console.log(response);
     } catch(error) {
       console.log(error);
     }
