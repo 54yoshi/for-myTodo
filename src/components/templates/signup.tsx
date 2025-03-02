@@ -22,7 +22,8 @@ const Signup: React.FC = () => {
     // const endPoint = process.env.NEXT_PUBLIC_ORIGIN;
     console.log("エンドポイント:",endPoint);
     try{
-      const response = await axios.post(endPoint + '/user/preResister', {
+      const response = await axios.post(endPoint + '/api/user/preResister', 
+      {
         userName: newUserName,
         mailAddress: newEmail,
         password: newPassword
