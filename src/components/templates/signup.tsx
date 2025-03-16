@@ -18,7 +18,7 @@ const Signup: React.FC = () => {
   }, [newEmail, newPassword])
 
   async function sendEmail(){
-    const endPoint = 'https://api-for-my-todo.vercel.app';
+    const endPoint = 'http://http://3.114.152.88:3001';
     // const endPoint = process.env.NEXT_PUBLIC_ORIGIN;
     console.log("エンドポイント:",endPoint);
     try{
