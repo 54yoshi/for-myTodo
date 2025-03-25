@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 const Index: React.FC = () => {
   const router = useRouter();
-  router.push("/admin/login");
+  router.push("/admin/slotGame");
   return null
 };
 
