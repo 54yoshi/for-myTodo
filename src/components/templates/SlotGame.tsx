@@ -10,7 +10,13 @@ const SlotGame: React.FC = () => {
   const [isStops , setIsStops] = useState([true, true, true]);
 
   // 同じコンポーネントを配置する際の左端からの距離
-  const componentsPosition = [
+  const sliderPosition = [
+    18,
+    36.5,
+    55,
+  ];
+
+  const stopButtonPosition = [
     18,
     36.5,
     55,
@@ -28,7 +34,7 @@ const SlotGame: React.FC = () => {
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
         }}>
-        {componentsPosition.map((position, index) => {
+        {sliderPosition.map((position, index) => {
           return(
             <SlotSlider 
               key={index}
@@ -38,17 +44,26 @@ const SlotGame: React.FC = () => {
             />
           )
         })}
-        {componentsPosition.map((position, index) => {
-          return(
-            <StopButton 
-              key={index}
-              leftPosition={position} 
-              isStops={isStops} 
-              setIsStops={setIsStops} 
-              buttonIndex={index}
-            />
-          )
-        })}
+        <div style={{
+          position: "absolute", 
+          top: "740px", 
+          left: "16%", 
+          width: "55%", 
+          height: "12%",
+          backgroundColor: "#d1cece",
+        }}>
+          {stopButtonPosition.map((position, index) => {
+            return(
+              <StopButton 
+                key={index}
+                leftPosition={position} 
+                isStops={isStops} 
+                setIsStops={setIsStops} 
+                buttonIndex={index}
+              />
+            )
+          })}
+        </div>
         <SpinButton 
           isStops={isStops}
           setIsStops={setIsStops}

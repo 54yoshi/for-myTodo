@@ -1,7 +1,7 @@
 import styles from "./spinButton.module.css";
 import bgImage from "../../images/spinButton.png";
 
-import React, { useRef }from "react";
+import React, {useRef}from "react";
 
 type Props = {
   isStops: boolean[];
@@ -19,7 +19,7 @@ const SpinButton: React.FC<Props> = ({ isStops, setIsStops }) => {
     el.classList.add('rotate');
   }
 
-  async function checkAllTrue() {
+  function checkAllTrue(isStops) {
     return isStops.every((stop) => stop);
   };
 
@@ -29,16 +29,15 @@ const SpinButton: React.FC<Props> = ({ isStops, setIsStops }) => {
       className={styles.spinButton}
       style={{
         backgroundImage: `url(${bgImage.src})`,
+        cursor: "pointer",
       }}
-      onClick={checkAllTrue() ? () => {
-        const newIsStops = [...isStops];
-
-        newIsStops.forEach((stop) => {
-          stop = false; 
-        })     
-        
-        setIsStops(newIsStops);
-      } : undefined}
+      onClick={ () => {
+        if(checkAllTrue(isStops)) {
+          console.log(isStops);
+          const newIsStops = isStops.map(() => false); 
+          setIsStops(newIsStops);
+        }
+      }}
     >
     </div>
   )

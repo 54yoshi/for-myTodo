@@ -1,6 +1,7 @@
 "use client"
-import React, { useState, useEffect } from "react";
-// import styles from "./stopButton.module.css";
+import React from "react";
+import styles from "./stopButton.module.css";
+import bgImage from "../../images/stopButton.png";
 
 type Props = {
   isStops: boolean[];
@@ -14,26 +15,34 @@ const StopButton: React.FC<Props> = ({ isStops, setIsStops, buttonIndex, leftPos
   return(
     <div 
       style={{
-        backgroundColor: isStops[buttonIndex] ? "black" : "blue",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         position:"absolute",
-        top: "759px",
+        top: "10px",
         left: `${leftPosition}%`,
-        width: "14%",
-        height: "9%",
+        width: "16%",
+        height: "60%",
         cursor: "pointer",
-        opacity: "0.8",
+        borderRadius: '10px',
+        // opacity: "0.8",
+        backgroundImage: `url(${bgImage.src})`,
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        zIndex: "10",
       }} 
-      onClick={ !isStops[buttonIndex] ? () => {
-        const newIsStops = [...isStops];
-        newIsStops[buttonIndex] = true;
-        
-        setIsStops(newIsStops);
-      } : undefined}
+      className={styles.stopButton}
+      onClick={() => {
+        if (!isStops[buttonIndex]) {
+          const newIsStops = [...isStops];
+          newIsStops[buttonIndex] = true;
+          setIsStops(newIsStops);
+          console.log(newIsStops);
+        }
+      }}      
     >
-      <div style={{
+      {/* <div style={{
         color: "#FFD700",
         fontSize: "30px",
         fontWeight: "bold",
@@ -44,7 +53,7 @@ const StopButton: React.FC<Props> = ({ isStops, setIsStops, buttonIndex, leftPos
         alignItems: "center",
       }}>
         STOP
-      </div>
+      </div> */}
     </div>
   )
 }
