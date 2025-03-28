@@ -6,14 +6,18 @@ import slotImage3 from "../../images/slotImage2.png";
 import slotImage4 from "../../images/slotImage3.png";
 import slotImage5 from "../../images/slotImage4.png";
 import slotImage6 from "../../images/slotImage5.png";
+import slotImage7 from "../../images/slotImage6.png";
+import slotImage8 from "../../images/slotImage7.png";
+import slotImage9 from "../../images/slotImage8.png";
 
 type Props = {
   leftPosition: number;
   sliderIndex: number;
   isStops: boolean[];
+  slotImages: {id: number, src: string}[];
 }
 
-const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops}) => {
+const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotImages}) => {
   const [slidePosition, setSlidePosition] = useState(0);
   const rafRef = useRef<number | null>(null);
   
@@ -119,7 +123,6 @@ const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops}) => {
         rafRef.current = null;
       }
     };
-  
   }, [isStops[sliderIndex]]);
   
   
@@ -132,16 +135,6 @@ const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops}) => {
   //     }
   //   };
   // }, [isStops[sliderIndex]]);
-  
-
-  const slotImages = [
-    {id: 1, src:slotImage1.src},
-    {id: 2, src:slotImage2.src},
-    {id: 3, src:slotImage3.src},
-    {id: 4, src:slotImage4.src},
-    {id: 5, src:slotImage5.src},
-    {id: 6, src:slotImage6.src},
-  ];
 
   return(
     <div style={{ left: `${leftPosition}%` }} className={styles.container}>

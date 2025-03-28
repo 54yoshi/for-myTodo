@@ -5,6 +5,16 @@ import bgImage from "../../images/slotDefaultImage.png";
 import SlotSlider from "../parts/slotSlider";
 import StopButton from "../parts/stopButton";
 import SpinButton from "../parts/spinButton";
+import slotImage1 from "../../images/slotImage.png";
+import slotImage2 from "../../images/slotImage1.png";
+import slotImage3 from "../../images/slotImage2.png";
+import slotImage4 from "../../images/slotImage3.png";
+import slotImage5 from "../../images/slotImage4.png";
+import slotImage6 from "../../images/slotImage5.png";
+import slotImage7 from "../../images/slotImage6.png";
+import slotImage8 from "../../images/slotImage7.png";
+import slotImage9 from "../../images/slotImage8.png";
+
 
 const SlotGame: React.FC = () => {
   const [isStops , setIsStops] = useState([true, true, true]);
@@ -17,9 +27,21 @@ const SlotGame: React.FC = () => {
   ];
 
   const stopButtonPosition = [
-    18,
-    36.5,
-    55,
+    8,
+    41.5,
+    75.5,
+  ];
+
+  const slotImages = [
+    {id: 1, src:slotImage1.src},
+    {id: 2, src:slotImage2.src},
+    {id: 3, src:slotImage3.src},
+    {id: 4, src:slotImage4.src},
+    {id: 5, src:slotImage5.src},
+    {id: 6, src:slotImage6.src},
+    {id: 7, src:slotImage7.src},
+    {id: 8, src:slotImage8.src},
+    {id: 9, src:slotImage9.src},
   ];
 
   return (
@@ -41,6 +63,7 @@ const SlotGame: React.FC = () => {
               isStops={isStops}
               leftPosition={position} 
               sliderIndex={index}
+              slotImages={slotImages}
             />
           )
         })}

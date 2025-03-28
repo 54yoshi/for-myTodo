@@ -15,22 +15,8 @@ const StopButton: React.FC<Props> = ({ isStops, setIsStops, buttonIndex, leftPos
   return(
     <div 
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        position:"absolute",
-        top: "10px",
         left: `${leftPosition}%`,
-        width: "16%",
-        height: "60%",
-        cursor: "pointer",
-        borderRadius: '10px',
-        // opacity: "0.8",
         backgroundImage: `url(${bgImage.src})`,
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        zIndex: "10",
       }} 
       className={styles.stopButton}
       onClick={() => {

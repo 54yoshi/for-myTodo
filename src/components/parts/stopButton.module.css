@@ -1,11 +1,28 @@
-/* .stopButton {
-  background: radial-gradient(#222, #111);
-  color: #FFD700;
-  border: 3px solid #FFD700;
-  overflow: hidden;
+.stopButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  width: 16%;
+  height: 60%;
+  cursor: pointer;
+  border-radius: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 10;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(11, 11, 11, 0.6);
 }
 
-.stopButton::before {
+.stopButton:hover {
+  box-shadow: none;
+}
+
+
+/* .stopButton::before {
   content: '';
   position: absolute;
   top: 4px; left: 4px; right: 4px; bottom: 4px;
@@ -21,4 +38,4 @@
 @keyframes blink {
   from { opacity: 0.5; }
   to { opacity: 1; }
-} */
+} */ 
