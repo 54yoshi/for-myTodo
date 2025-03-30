@@ -1,5 +1,5 @@
 "use client"
-import React ,{ useState } from "react";
+import React ,{ useState, useEffect, useMemo } from "react";
 import styles from "./SlotGame.module.css";
 import bgImage from "../../images/slotDefaultImage.png";
 import SlotSlider from "../parts/slotSlider";
@@ -19,6 +19,13 @@ import slotImage9 from "../../images/slotImage8.png";
 const SlotGame: React.FC = () => {
   const [isStops , setIsStops] = useState([true, true, true]);
 
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
+
+  useEffect(() => {
+    setIsFirstRender(false);
+  }, [])
+
   // 同じコンポーネントを配置する際の左端からの距離
   const sliderPosition = [
     18,
@@ -32,7 +39,7 @@ const SlotGame: React.FC = () => {
     75.5,
   ];
 
-  const slotImages = [
+  const slotImages = useMemo(() => [
     {id: 1, src:slotImage1.src},
     {id: 2, src:slotImage2.src},
     {id: 3, src:slotImage3.src},
@@ -42,7 +49,8 @@ const SlotGame: React.FC = () => {
     {id: 7, src:slotImage7.src},
     {id: 8, src:slotImage8.src},
     {id: 9, src:slotImage9.src},
-  ];
+  ], []);    
+  
 
   return (
       <div className ={styles.container}>
@@ -64,6 +72,7 @@ const SlotGame: React.FC = () => {
               leftPosition={position} 
               sliderIndex={index}
               slotImages={slotImages}
+              isFirstRender={isFirstRender}
             />
           )
         })}
