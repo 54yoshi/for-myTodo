@@ -21,31 +21,33 @@ const SlotRoleInput: React.FC<Props> = ({
   }
 
   return(
-    <div 
-      className={styles.container}
-      style={{ left: `${position}px`}}
-    >
-      {roleInputs.map(({id, src, role}) => (
-        <div 
-          key={id}
-          className={styles.inputContainer}
-        >
-          <img 
-            src={src} 
-            alt="スロットの出目の画像"  
-            className={styles.image}
-          />
-          <div className={styles.textContainer}>
-            <input 
-              type="text" 
-              onChange={e => updateRoleInputs(id, e.target.value)} 
-              value={role}
-              className={styles.text}
-            />
-          </div>
+      <div 
+        className={styles.container}
+        style={{ left: `${position}px`}}
+      >
+        <div className={styles.cover}>
         </div>
-      ))}
-    </div>
+        {roleInputs.map(({id, src, role}) => (
+          <div 
+            key={id}
+            className={styles.inputContainer}
+          >
+            <img 
+              src={src} 
+              alt="スロットの出目の画像"  
+              className={styles.image}
+            />
+            <div className={styles.textContainer}>
+              <input 
+                type="text" 
+                onChange={e => updateRoleInputs(id, e.target.value)} 
+                value={role}
+                className={styles.text}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
   )
 }
 

@@ -2,7 +2,7 @@
 import React ,{ useState, useEffect, useMemo } from "react";
 import styles from "./SlotGame.module.css";
 import bgImage from "../../images/slotDefaultImage.png";
-import SlotRoleInput from "../parts/slotRoleInput";
+import SlotRoleInput from "../parts/SlotRoleInput";
 import SlotSlider from "../parts/slotSlider";
 import StopButton from "../parts/stopButton";
 import SpinButton from "../parts/spinButton";
@@ -117,11 +117,20 @@ const SlotGame: React.FC = () => {
             )
           })}
         </div>
-        <SlotRoleInput 
-          roleInputs={roleInputs} 
-          position={1100}
-          setRoleInputs={setRoleInputs}
-        />
+        <div style={{
+          position: "absolute", 
+          top: "640px", 
+          left: "1080px", 
+          width: "28%", 
+          height: "13%",
+          backgroundColor: "#d1cece",
+        }}>
+        </div>
+          <SlotRoleInput 
+            roleInputs={roleInputs} 
+            position={1100}
+            setRoleInputs={setRoleInputs}
+          />
         <SpinButton 
           isStops={isStops}
           setIsStops={setIsStops}
