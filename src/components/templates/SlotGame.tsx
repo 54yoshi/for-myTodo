@@ -2,6 +2,7 @@
 import React ,{ useState, useEffect, useMemo } from "react";
 import styles from "./SlotGame.module.css";
 import bgImage from "../../images/slotDefaultImage.png";
+import SlotRoleInput from "../parts/slotRoleInput";
 import SlotSlider from "../parts/slotSlider";
 import StopButton from "../parts/stopButton";
 import SpinButton from "../parts/spinButton";
@@ -15,30 +16,27 @@ import slotImage7 from "../../images/slotImage6.png";
 import slotImage8 from "../../images/slotImage7.png";
 import slotImage9 from "../../images/slotImage8.png";
 
-
 const SlotGame: React.FC = () => {
-  const [isStops , setIsStops] = useState([true, true, true]);
+  type RoleInput = {
+    id: number;
+    src: string;
+    role: string;
+  };
 
-  const [isFirstRender, setIsFirstRender] = useState(true);
-
-
-  useEffect(() => {
-    setIsFirstRender(false);
-  }, [])
-
-  // 同じコンポーネントを配置する際の左端からの距離
-  const sliderPosition = [
-    18,
-    36.5,
-    55,
-  ];
-
-  const stopButtonPosition = [
-    8,
-    41.5,
-    75.5,
-  ];
-
+  //ユーザーがスライダーの役に入れた情報を管理するためのstate
+  const  [roleInputs, setRoleInputs] = useState<RoleInput[]>([
+    { id: 1, src: slotImage1.src, role: "" },
+    { id: 2, src: slotImage2.src, role: "" },
+    { id: 3, src: slotImage3.src, role: "" },
+    { id: 4, src: slotImage4.src, role: "" },
+    { id: 5, src: slotImage5.src, role: "" },
+    { id: 6, src: slotImage6.src, role: "" },
+    { id: 7, src: slotImage7.src, role: "" },
+    { id: 8, src: slotImage8.src, role: "" },
+    { id: 9, src: slotImage9.src, role: "" },
+  ]);
+  
+  //スライダー用のstate(レンダリングを防ぐため)
   const slotImages = useMemo(() => [
     {id: 1, src:slotImage1.src},
     {id: 2, src:slotImage2.src},
@@ -49,7 +47,30 @@ const SlotGame: React.FC = () => {
     {id: 7, src:slotImage7.src},
     {id: 8, src:slotImage8.src},
     {id: 9, src:slotImage9.src},
-  ], []);    
+  ], []); 
+
+  const [isStops , setIsStops] = useState([true, true, true]);
+
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
+  useEffect(() => {
+    setIsFirstRender(false);
+  }, [])
+
+  // スライダーコンポーネントを配置する際の左端からの距離
+  const sliderPosition = [
+    18,
+    36.5,
+    55,
+  ];
+
+  //ストップボタンを配置する際の
+  const stopButtonPosition = [
+    8,
+    41.5,
+    75.5,
+  ];
+
   
 
   return (
@@ -96,6 +117,11 @@ const SlotGame: React.FC = () => {
             )
           })}
         </div>
+        <SlotRoleInput 
+          roleInputs={roleInputs} 
+          position={1100}
+          setRoleInputs={setRoleInputs}
+        />
         <SpinButton 
           isStops={isStops}
           setIsStops={setIsStops}

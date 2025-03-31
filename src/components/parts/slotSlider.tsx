@@ -11,6 +11,7 @@ type Props = {
 
 const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotImages, isFirstRender}) => {
   const [slidePosition, setSlidePosition] = useState(0);
+  const [shuffledSlotImages, setShuffledSlotImages] = useState(slotImages);
   const rafRef = useRef<number | null>(null);
 
   const renderRef = useRef(true);
@@ -115,43 +116,46 @@ const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotI
      return copyArray;
   };
 
-  const shuffledSlotImages = useMemo(() => {
-    console.log("シャッフルが毎回発生している");
-    return shuffleArray(slotImages)
-  }, [slotImages]);
+  // const shuffledSlotImages = useMemo(() => {
+  //   return shuffleArray(slotImages)
+  // }, [slotImages]);
+
+  useEffect(() => {
+    setShuffledSlotImages(shuffleArray(slotImages));
+  }, []);
 
 
   return(
     <div style={{ left: `${leftPosition}%` }} className={styles.container}>
       <div className={styles.cover}>
+      </div>
         <div 
           style={{ 
             transform: `translateY(${slidePosition}px)`
           }} 
           className={styles.sliderContainer}
         >
-          <div className={styles.sliderImages} ref={sliderRef}>
-            {shuffledSlotImages.map(({id, src}) => (
-              <div 
-                key={id} 
-                className={styles.sliderImgBox}
-                data-key={id}
-              >
-                <img  className={styles.sliderImg} src={src}></img>
-              </div>
-            ))}
-          </div>
-          <div className={styles.sliderImages}>
-            {shuffledSlotImages.map(({id, src}) => (
-              <div 
-                key={id} 
-                className={styles.sliderImgBox}
-                data-key={id}
-              >
-                <img className={styles.sliderImg} src={src}></img>
-              </div>
-            ))}
-          </div>
+        <div className={styles.sliderImages} ref={sliderRef}>
+          {shuffledSlotImages.map(({id, src}) => (
+            <div 
+              key={id} 
+              className={styles.sliderImgBox}
+              data-key={id}
+            >
+              <img  className={styles.sliderImg} src={src}></img>
+            </div>
+          ))}
+        </div>
+        <div className={styles.sliderImages}>
+          {shuffledSlotImages.map(({id, src}) => (
+            <div 
+              key={id} 
+              className={styles.sliderImgBox}
+              data-key={id}
+            >
+              <img className={styles.sliderImg} src={src}></img>
+            </div>
+          ))}
         </div>
       </div>
     </div>
