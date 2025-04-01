@@ -53,6 +53,13 @@
   animation: shine 3s infinite linear;
 }
 
+.congratulationsContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .congratulations{
   display: flex;
   justify-content: center;
