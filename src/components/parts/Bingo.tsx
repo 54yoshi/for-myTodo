@@ -16,7 +16,12 @@ const Bingo = ({setIsBingoId, isBingoId, roleInputs}) => {
   return(
     <div className={styles.container} onClick={() => setIsBingoId(null)}>
       <div className={styles.bingo}>
-      {`ビンゴ${roleInputs[isBingoId].role}`}
+        <div className={styles.congratulations}>
+          <div className={styles.party}>🥳</div>
+          <div>congratulations!!!</div>
+          <div className={styles.party}>🥳</div>
+        </div>
+        {`${roleInputs[isBingoId].role}`}
       </div>
     </div>
   )
