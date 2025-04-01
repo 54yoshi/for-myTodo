@@ -1,0 +1,23 @@
+.container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whtie;
+  color: black;
+  z-index: 10;
+}
+
+.bingo{
+  width: 400px;
+  height: 300px;
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

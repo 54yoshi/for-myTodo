@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useRef, useMemo } from "react";
+import React,{ useState, useEffect, useRef } from "react";
 import styles from "./slotSlider.module.css";
 
 type Props = {
@@ -7,14 +7,17 @@ type Props = {
   isStops: boolean[];
   slotImages: {id: number, src: string}[];
   isFirstRender: boolean;
+  slotResults: number[][];
+  setSlotResults: React.Dispatch<React.SetStateAction<number[][]>>
+  reachIds: number[];
+  setReachIds: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotImages, isFirstRender}) => {
+const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotImages, isFirstRender, slotResults, setSlotResults, reachIds, setReachIds}) => {
   const [slidePosition, setSlidePosition] = useState(0);
   const [shuffledSlotImages, setShuffledSlotImages] = useState(slotImages);
   const rafRef = useRef<number | null>(null);
 
-  const renderRef = useRef(true);
   const sliderRef = useRef(null);
 
   const speed = 30;
@@ -49,7 +52,6 @@ const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotI
   
   useEffect(() => {
     if(isFirstRender){
-      console.log('renderRef.current', renderRef.current);
       return;
     }
     if (isStops[sliderIndex]) {
@@ -62,7 +64,6 @@ const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotI
       const containerRect = sliderRef.current.parentElement.parentElement.getBoundingClientRect();
   
       const containerCenterY =  containerRect.top + containerRect.height / 2;
-      console.log('containerCenterY', containerCenterY);
   
       let closestDistance = Infinity;
       let closestElement = null;
@@ -78,11 +79,12 @@ const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotI
       });
   
       if (closestElement) {
-        const closestKey = closestElement.getAttribute("data-key");
-        console.log("最も近い画像のkeyは:", closestKey);
-      }      
-  
-      if (closestElement) {
+        const closestKey = Number(closestElement.getAttribute("data-id"));
+        const activeSlider = getActiveSlider(shuffledSlotImages, closestKey);
+        const newSlotResults = [...slotResults];
+        newSlotResults[sliderIndex] = activeSlider;
+        setSlotResults(newSlotResults);
+
         const closestRect = closestElement.getBoundingClientRect();
         const offset = containerCenterY - (closestRect.top + closestRect.height / 2);
   
@@ -106,6 +108,23 @@ const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotI
       }
     };
   }, [isStops[sliderIndex]]);
+
+  type SlotImage = {id: number, src: string};
+
+  function getActiveSlider(array: SlotImage[], key: number):number[]{
+    const activeIndex = array.findIndex(item => item.id === key);
+    const length = array.length;
+
+    if (activeIndex === -1) {
+      throw new Error("指定されたkeyが配列に存在しません");
+    }
+    return [
+      activeIndex === 0 ? array[length - 1].id : array[activeIndex - 1].id,
+      array[activeIndex].id,
+      activeIndex === length - 1 ? array[0].id : array[activeIndex + 1].id,
+    ];    
+  };
+  
   
   function shuffleArray (array) {
     const copyArray = [...array];
@@ -116,14 +135,63 @@ const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotI
      return copyArray;
   };
 
-  // const shuffledSlotImages = useMemo(() => {
-  //   return shuffleArray(slotImages)
-  // }, [slotImages]);
+  function getReachIds(line) {
+    if(line[0] === line[1]){
+      return line[0];
+    }
+    if(line[1] === line[2]){
+      return line[1];
+    }
+    if(line[0] === line[2]){
+      return line[0];
+    }
+  };
+  
+  
+  // 全ラインのリーチ判定とID取得
+  function checkReach(results) {
+    let reaches = [];
+  
+    // 横ライン
+    for (let row = 0; row < 3; row++) {
+      const line = [results[0][row], results[1][row], results[2][row]];
+      const reachIds = getReachIds(line);
+      if (reachIds !== undefined) { 
+        reaches.push(reachIds);
+      }
+    }
+  
+    // 斜めライン（左上から右下）
+    const diag1 = [results[0][0], results[1][1], results[2][2]];
+    const reachIdsDiag1 = getReachIds(diag1);
+    if (reachIdsDiag1 !== undefined) {
+      reaches.push(reachIdsDiag1);
+    }
+  
+    // 斜めライン（左下から右上）
+    const diag2 = [results[0][2], results[1][1], results[2][0]];
+    const reachIdsDiag2 = getReachIds(diag2);
+    if (reachIdsDiag2 !== undefined) {
+      reaches.push(reachIdsDiag2);
+    }
+  
+    return reaches;
+  }
+  
+  
+  useEffect(() => {
+    if(isFirstRender || isStops.every(stop => stop === true)){
+      return;
+    }
+    const reaches = checkReach(slotResults);
+    setReachIds(reaches);
+  },[isStops[sliderIndex], slotResults]);
 
   useEffect(() => {
     setShuffledSlotImages(shuffleArray(slotImages));
   }, []);
 
+  
 
   return(
     <div style={{ left: `${leftPosition}%` }} className={styles.container}>
@@ -136,22 +204,22 @@ const SlotSlider: React.FC<Props> = ({ leftPosition, sliderIndex, isStops, slotI
           className={styles.sliderContainer}
         >
         <div className={styles.sliderImages} ref={sliderRef}>
-          {shuffledSlotImages.map(({id, src}) => (
+          {shuffledSlotImages.map(({id, src}, index) => (
             <div 
-              key={id} 
-              className={styles.sliderImgBox}
-              data-key={id}
+              key={index} 
+              className={`${styles.sliderImgBox} ${reachIds.includes(id) ? styles.reach : ''}`}
+              data-id={id}
             >
               <img  className={styles.sliderImg} src={src}></img>
             </div>
           ))}
         </div>
         <div className={styles.sliderImages}>
-          {shuffledSlotImages.map(({id, src}) => (
+          {shuffledSlotImages.map(({id, src}, index) => (
             <div 
-              key={id} 
-              className={styles.sliderImgBox}
-              data-key={id}
+              key={index} 
+              className={`${styles.sliderImgBox} ${reachIds.includes(id) ? styles.reach : ''}`}
+              data-id={id}
             >
               <img className={styles.sliderImg} src={src}></img>
             </div>

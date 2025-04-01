@@ -6,6 +6,7 @@ import SlotRoleInput from "../parts/SlotRoleInput";
 import SlotSlider from "../parts/slotSlider";
 import StopButton from "../parts/stopButton";
 import SpinButton from "../parts/spinButton";
+import Bingo from "../parts/Bingo";
 import slotImage1 from "../../images/slotImage.png";
 import slotImage2 from "../../images/slotImage1.png";
 import slotImage3 from "../../images/slotImage2.png";
@@ -49,13 +50,72 @@ const SlotGame: React.FC = () => {
     {id: 9, src:slotImage9.src},
   ], []); 
 
+  //リーチと当たり判定をするための配列
+  const [slotResults, setSlotResults] = useState([
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ]);
+  
+
   const [isStops , setIsStops] = useState([true, true, true]);
 
   const [isFirstRender, setIsFirstRender] = useState(true);
 
+  const [reachIds, setReachIds] = useState([]);
+
+  const [isBingoId, setIsBingoId] = useState<number | null>(null);
+
   useEffect(() => {
     setIsFirstRender(false);
   }, [])
+  
+  useEffect(() => {
+    if(isFirstRender || !isStops.every(stop => stop === true)){
+      return;
+    }
+    const isBingo = isLineUniform(slotResults);
+    setIsBingoId(isBingo);
+    console.log(isBingo);
+  },[isStops[0],isStops[1],isStops[2], slotResults]);
+
+  function isLineUniform(slotResults) {
+    if (slotResults.length < 3 || slotResults[0].length < 3) return false;
+  
+    const size = 3;
+  
+    // 横方向チェック
+    for (let row = 0; row < size; row++) {
+      const firstValue = slotResults[0][row];
+      if (slotResults.every(col => col[row] === firstValue)) {
+        return firstValue;
+      }
+    }
+  
+    // 斜め方向チェック（左上→右下）
+    const firstDiag1 = slotResults[0][0];
+    let isDiag1Uniform = true;
+    for (let i = 1; i < size; i++) {
+      if (slotResults[i][i] !== firstDiag1) {
+        isDiag1Uniform = false;
+        break;
+      }
+    }
+    if (isDiag1Uniform) return firstDiag1;
+  
+    // 斜め方向チェック（左下→右上）
+    const firstDiag2 = slotResults[0][size - 1];
+    let isDiag2Uniform = true;
+    for (let i = 1; i < size; i++) {
+      if (slotResults[i][size - 1 - i] !== firstDiag2) {
+        isDiag2Uniform = false;
+        break;
+      }
+    }
+    if (isDiag2Uniform) return firstDiag2;
+  
+    return null;
+  }
 
   // スライダーコンポーネントを配置する際の左端からの距離
   const sliderPosition = [
@@ -94,6 +154,10 @@ const SlotGame: React.FC = () => {
               sliderIndex={index}
               slotImages={slotImages}
               isFirstRender={isFirstRender}
+              slotResults={slotResults}
+              setSlotResults={setSlotResults}
+              reachIds={reachIds}
+              setReachIds={setReachIds}
             />
           )
         })}
@@ -134,8 +198,17 @@ const SlotGame: React.FC = () => {
         <SpinButton 
           isStops={isStops}
           setIsStops={setIsStops}
+          setSlotResults={setSlotResults}
+          setReachIds={setReachIds}
         />
         </div>
+        {isBingoId !== null && 
+          <Bingo 
+            setIsBingoId={setIsBingoId}
+            isBingoId={isBingoId}
+            roleInputs={roleInputs}
+          />
+        }
       </div>
   )
 }

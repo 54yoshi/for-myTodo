@@ -22,6 +22,7 @@
 .inputContainer{
   display: flex;
   height: 63px;
+  margin: 0 10px;
 }
 
 .image {
