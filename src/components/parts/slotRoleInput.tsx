@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./slotRoleInput.module.css";
+import styles from "./SlotRoleInput.module.css";
 
 type Props ={
   roleInputs: {id: number, src: string, role: string}[],
